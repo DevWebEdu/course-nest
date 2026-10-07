@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post
 import { CoffeesService } from './coffees.service.js';
 import { CreateCoffeeDto } from './dto/create-coffee.dto.js';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto.js';
+import { PaginationQueryDto } from '../common/dto/pagination.dto.js';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -9,9 +10,9 @@ export class CoffeesController {
 
 
     @Get()
-    findAll(@Query() paginationQuery:{limit : string , offset : string}) {
-    const { limit, offset } = paginationQuery;
-    return this.coffeesService.findAll();
+    findAll(@Query() paginationQuery:PaginationQueryDto) {
+    
+    return this.coffeesService.findAll(paginationQuery);
   }
 
     @Get(':id')
@@ -31,7 +32,7 @@ export class CoffeesController {
     }
 
     @Delete(':id')
-    remove(@Param(':id') id:string){
+    remove(@Param('id') id: string) {
         return this.coffeesService.remove(id);
     }
 }
