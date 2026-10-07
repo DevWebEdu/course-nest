@@ -10,7 +10,10 @@ async function bootstrap() {
    forbidNonWhitelisted: true, // 👈 Lanza error si existe datos excendentes  status -> 400
    transform : true, // en un inicio el body no es igual a una instancia de su dto, esto lo conbierte
    whitelist: true,// 👈 deja pasar los datos excedentes del DTO pero no los muestra
-}));
+   transformOptions: {
+      enableImplicitConversion: true,
+    },
+  }));
   await app.listen(process.env.PORT ?? 3000);
 }
 await bootstrap();
